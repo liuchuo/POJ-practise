@@ -35,16 +35,29 @@ A1B3C1A2B4C2A3B1C3A4B2C4
 Source
 
 TUD Programming Contest 2005, Darmstadt, Germany
+
+
 #include <iostream>
 using namespace std;
-int next1[8][2]={-2,-1,-2,1,-1,-2,-1,2,1,-2,1,2,2,-1,2,1};   //记录方向
+int next1[8][2]={
+    {-2, -1},
+    {-2, 1},
+    {-1, -2},
+    {-1, 2},
+    {1, -2},
+    {1, 2},
+    {2, -1},
+    {2, 1}
+};   //记录方向
 int a, b, flag;
 int book[26][26], path[26][2];
 void dfs(int i, int j, int k) {
     if (k == a * b) {
-        for (int t = 0; t < k; t++)
-            printf("%c%d",path[t][0]+'A',path[t][1]+1);
-        printf("\n");
+        for (int t = 0; t < k; t++) {
+            printf("%c", path[t][0] + 'A');
+            cout << path[t][1]+1;
+        }
+        cout << endl;
         flag = 1;
     } else {
         for (int t = 0; t < 8; t++) {
@@ -63,19 +76,20 @@ void dfs(int i, int j, int k) {
 
 int main() {
     int N;
-    scanf("%d", &N);
+    cin >> N;
     for (int m = 0; m < N; m++) {
         flag = 0;
-        scanf("%d %d",&a,&b);
+        cin >> a >> b;
         for (int i = 0; i < a; i++)
             for (int j = 0; j < b; j++)
                 book[i][j] = 0;
         book[0][0] = 1;
         path[0][0] = 0,path[0][1] = 0;
-        printf("Scenario #%d:\n",m+1);
+        cout << "Scenario #" << m + 1 << ":" << endl;
         dfs(0, 0, 1);
-        if (!flag) printf("impossible\n");
-        printf("\n");
+        if (!flag)
+            cout << "impossible" << endl;
+        cout << endl;
     }
     return 0;
 }
